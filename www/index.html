@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+  		<link rel="stylesheet" href="css/bootstrap.css">
+        <title>Calculator</title>
+        <style type="text/css">
+        html, body {
+            height: 100%;
+        }
+        h1 {
+            font-size: .6em;
+        }
+        h2 {
+            font-size: .50em;
+        }
+    </style>
+    </head>
+    <body class="bg-dark">
+        <script type="text/javascript" src="cordova.js"></script>
+        <div class="container h-100">
+        	<p class="text-center font-weight-bold text-light">Kevin's Calculator</p>
+        	<h1 id="showWindow" class="text-right text-white mb-5 display-1">0</h1>
+            <div class="row mt-3">
+                <div class="col">
+                    <button class="btn btn-block btn-danger btn-lg" onClick="number(':(')">:(</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-block btn-danger btn-lg" onClick="number('-.-')">-.-</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-block btn-danger btn-lg" onClick="number(';)')">;)</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-block btn-danger font-weight-bold btn-lg" onClick="number(':p')">:p</button>
+                </div>
+            </div>
+            <!-- <div class="row mt-3">
+                <div class="col">
+                    <button class="btn btn-block btn-secondary btn-lg">AC</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-block btn-secondary btn-lg">+/-</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-block btn-secondary btn-lg">%</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-block btn-secondary font-weight-bold btn-lg">/</button>
+                </div>
+            </div> -->
+            <div class="row mt-3">
+                <div class="col">
+                    <button class="btn btn-block btn-secondary btn-lg" onClick="number('Back')">Back</button>
+                </div>
+                <!-- <div class="col">
+                    <button class="btn btn-block btn-secondary btn-lg">+/-</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-block btn-secondary btn-lg">%</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-block btn-secondary font-weight-bold btn-lg">/</button>
+                </div> -->
+            </div>
+        	<div class="row mt-3">
+        		<div class="col">
+        			<button class="btn btn-block btn-secondary btn-lg" onClick="number('AC')">AC</button>
+        		</div>
+        		<div class="col">
+        			<button class="btn btn-block btn-secondary btn-lg" onClick="number('+/-')">+/-</button>
+        		</div>
+        		<div class="col">
+        			<button class="btn btn-block btn-secondary btn-lg" onClick="number('%')">%</button>
+        		</div>
+        		<div class="col">
+        			<button class="btn btn-block btn-success font-weight-bold btn-lg" onClick="number('/')">/</button>
+        		</div>
+        	</div>
+        	<div class="row mt-3">
+        		<div class="col">
+        			<button class="btn btn-block btn-light btn-lg" onClick="number('7')">7</button>
+        		</div>
+        		<div class="col">
+        			<button class="btn btn-block btn-light btn-lg" onClick="number('8')">8</button>
+        		</div>
+        		<div class="col">
+        			<button class="btn btn-block btn-light btn-lg" onClick="number('9')">9</button>
+        		</div>
+        		<div class="col">
+        			<button class="btn btn-block btn-success font-weight-bold btn-lg" onClick="number('x')">X</button>
+        		</div>
+        	</div>
+        	<div class="row mt-3">
+        		<div class="col">
+        			<button class="btn btn-block btn-light btn-lg" onClick="number('4')">4</button>
+        		</div>
+        		<div class="col">
+        			<button class="btn btn-block btn-light btn-lg" onClick="number('5')">5</button>
+        		</div>
+        		<div class="col">
+        			<button class="btn btn-block btn-light btn-lg" onClick="number('6')">6</button>
+        		</div>
+        		<div class="col">
+        			<button class="btn btn-block btn-success font-weight-bold btn-lg" onClick="number('-')">-</button>
+        		</div>
+        	</div>
+        	<div class="row mt-3">
+        		<div class="col">
+        			<button class="btn btn-block btn-light btn-lg" onClick="number('1')">1</button>
+        		</div>
+        		<div class="col">
+        			<button class="btn btn-block btn-light btn-lg" onClick="number('2')">2</button>
+        		</div>
+        		<div class="col">
+        			<button class="btn btn-block btn-light btn-lg" onClick="number('3')">3</button>
+        		</div>
+        		<div class="col">
+        			<button class="btn btn-block btn-success font-weight-bold btn-lg" onClick="number('+')">+</button>
+        		</div>
+        	</div>
+        	<div class="row mt-3">
+        		<div class="col-3">
+        			<button class="btn btn-block btn-light btn-lg" onClick="number('0')">0</button>
+        		</div>
+        		<!-- <div class="col-3">
+        			<button class="btn btn-block btn-light btn-lg">.</button>
+        		</div> -->
+        		<div class="col-9">
+        			<button class="btn btn-block btn-success font-weight-bold btn-lg" onClick="number('equal')">=</button>
+        		</div>
+        	</div>
+    </div>
+    </body>
+</html>
+
+<script>
+//----------------------------------------------------------------
+// Variables that get declare to be used in the number() function
+var var1 = '';
+var var2 = '';
+
+
+var addition = false;
+var subtraction = false;
+var division = false;
+var multiplication = false;
+var result;
+
+
+
+//----------------------------------------------------------------
+// This function gets it's input from an onClick event on each button; it then stores the input on the necesary variables to do the math. 
+function number(choice){
+    // Emojis
+     if (choice == ':(') { 
+        document.getElementById("showWindow").innerHTML = '<h1>Don\'t be sad</h1>';
+    }
+    if (choice == '-.-') { 
+        document.getElementById("showWindow").innerHTML = '<h2>Angry? Eat a snicker</h2>';
+    }
+    if (choice == ';)') { 
+        document.getElementById("showWindow").innerHTML = '<h2>Shameless *.*</h2>';
+    }
+    if (choice == ':p') { 
+        document.getElementById("showWindow").innerHTML = '<h1>(^ . ^)</h1>';
+    }
+    // --------------------
+    if (choice == '0') { 
+        var equation = '';
+        equation = choice;
+        var1 = var1 + equation;
+        document.getElementById("showWindow").innerHTML = var1;
+    }
+    if (choice == '1') { 
+        var equation = '';
+        equation = choice;
+        var1 = var1 + equation;
+        document.getElementById("showWindow").innerHTML = var1;
+    }
+    if (choice == '2') { 
+        var equation = '';
+        equation = choice;
+        var1 = var1 + equation;
+        document.getElementById("showWindow").innerHTML = var1;
+    }
+    if (choice == '3') { 
+        var equation = '';
+        equation = choice;
+        var1 = var1 + equation;
+        document.getElementById("showWindow").innerHTML = var1;
+    }
+    if (choice == '4') { 
+        var equation = '';
+        equation = choice;
+        var1 = var1 + equation;
+        document.getElementById("showWindow").innerHTML = var1;
+    }
+    if (choice == '5') { 
+        var equation = '';
+        equation = choice;
+        var1 = var1 + equation;
+        document.getElementById("showWindow").innerHTML = var1;
+    }
+    if (choice == '6') { 
+        var equation = '';
+        equation = choice;
+        var1 = var1 + equation;
+        document.getElementById("showWindow").innerHTML = var1;
+    }
+    if (choice == '7') { 
+        var equation = '';
+        equation = choice;
+        var1 = var1 + equation;
+        document.getElementById("showWindow").innerHTML = var1;
+    }
+    if (choice == '8') { 
+        var equation = '';
+        equation = choice;
+        var1 = var1 + equation;
+        document.getElementById("showWindow").innerHTML = var1;
+    }
+    if (choice == '9') { 
+        var equation = '';
+        equation = choice;
+        var1 = var1 + equation;
+        document.getElementById("showWindow").innerHTML = var1;
+    }
+
+
+    // ----------------------------------------------------------------------
+    // These if statements turns some variables true if needed and resets the first input (var1).
+    if (choice == '+/-') {
+        var1 = var1 -(var1*2);
+        document.getElementById("showWindow").innerHTML = var1;
+    }
+    if (choice == '%') {
+        var1 = var1/100;
+        document.getElementById("showWindow").innerHTML = var1;
+    }
+    if (choice == 'Back') {
+        var1 = '';
+        document.getElementById("showWindow").innerHTML = 're-type';
+    }
+
+    if (choice == 'AC') {
+        document.getElementById("showWindow").innerHTML = '0';
+        var1 = '';
+        var2 = 0;
+    }
+
+    if (choice == '+') {
+        addition = true;
+        var2 = var1
+        var1 = '';
+        document.getElementById("showWindow").innerHTML = '0';
+    }
+
+    if (choice == '-') {
+        subtraction = true;
+        var2 = var1
+        var1 = '';
+        document.getElementById("showWindow").innerHTML = '0';
+    }
+     if (choice == 'x') {
+        multiplication = true;
+        var2 = var1
+        var1 = '';
+        document.getElementById("showWindow").innerHTML = '0';
+    }
+     if (choice == '/') {
+        division = true;
+        var2 = var1
+        var1 = '';
+        document.getElementById("showWindow").innerHTML = '0';
+    }
+
+
+// --------------------------------------------------------------------------------
+// Here is where the math and reset happens
+    if (choice == 'equal' && addition == true) {
+        result = parseFloat(var2) + parseFloat(var1);
+        document.getElementById("showWindow").innerHTML = result;
+        var1 = 0;
+        var2 = 0;
+        addition = false;
+        result = 0;
+    }
+
+     if (choice == 'equal' && subtraction == true) {
+        result = parseFloat(var2) - parseFloat(var1);
+        document.getElementById("showWindow").innerHTML = result;
+        var1 = 0;
+        var2 = 0;
+        subtraction = false;
+        result = 0;
+    }
+
+     if (choice == 'equal' && multiplication == true) {
+        result = parseFloat(var2) * parseFloat(var1);
+        document.getElementById("showWindow").innerHTML = result;
+        var1 = 0;
+        var2 = 0;
+        multiplication = false;
+        result = 0;
+    }
+
+      if (choice == 'equal' && division == true) {
+        result = parseFloat(var2) / parseFloat(var1);
+        document.getElementById("showWindow").innerHTML = result;
+        var1 = 0;
+        var2 = 0;
+        division = false;
+        result = 0;
+    }
+   
+}
+</script>
